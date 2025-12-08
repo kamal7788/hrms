@@ -88,10 +88,14 @@ def get_chart_data(parameters, filters):
 	for parameter in parameters:
 		if parameter:
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 6e4793aac (fix(Employee Analytics): use qb instead for v15 framework compatibility)
 			total_employee = (
 				frappe.qb.from_(employee)
 				.select(Count(employee.name).as_("count"))
 				.where(employee.company == filters.get("company"))
+<<<<<<< HEAD
 				.where(employee.status == "Active")
 				.where(employee[parameter_field_name] == parameter)
 				.where(Criterion.all(build_qb_match_conditions("Employee")))
@@ -104,6 +108,11 @@ def get_chart_data(parameters, filters):
 				as_list=1,
 			)
 >>>>>>> 800d73eed (fix(Employee Analytics): replace frappe.db.sql)
+=======
+				.where(employee[parameter_field_name] == parameter)
+				.where(Criterion.all(build_qb_match_conditions("Employee")))
+			).run()
+>>>>>>> 6e4793aac (fix(Employee Analytics): use qb instead for v15 framework compatibility)
 			if total_employee[0][0]:
 				label.append(parameter)
 			datasets.append(total_employee[0][0])
