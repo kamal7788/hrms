@@ -39,6 +39,7 @@ def get_columns():
 
 
 def get_employees(filters):
+<<<<<<< HEAD
 	filters_for_employees = frappe._dict(deepcopy(filters) or {})
 	filters_for_employees["status"] = "Active"
 	filters_for_employees[filters.get("parameter").lower().replace(" ", "_")] = ["is", "set"]
@@ -46,6 +47,15 @@ def get_employees(filters):
 	return frappe.get_list(
 		"Employee",
 		filters=filters_for_employees,
+=======
+	filters = frappe._dict(filters or {})
+	filters["status"] = "Active"
+	filters[filters.get("parameter").lower().replace(" ", "_")] = ["is", "set"]
+	filters.pop("parameter")
+	return frappe.get_list(
+		"Employee",
+		filters=filters,
+>>>>>>> 800d73eed (fix(Employee Analytics): replace frappe.db.sql)
 		fields=[
 			"name",
 			"employee_name",
@@ -77,6 +87,7 @@ def get_chart_data(parameters, filters):
 	employee = frappe.qb.DocType("Employee")
 	for parameter in parameters:
 		if parameter:
+<<<<<<< HEAD
 			total_employee = (
 				frappe.qb.from_(employee)
 				.select(Count(employee.name).as_("count"))
@@ -85,6 +96,14 @@ def get_chart_data(parameters, filters):
 				.where(employee[parameter_field_name] == parameter)
 				.where(Criterion.all(build_qb_match_conditions("Employee")))
 			).run()
+=======
+			total_employee = frappe.get_list(
+				"Employee",
+				filters={parameter_field_name: parameter, "company": filters.get("company")},
+				fields=[{"COUNT": "name", "as": "count"}],
+				as_list=1,
+			)
+>>>>>>> 800d73eed (fix(Employee Analytics): replace frappe.db.sql)
 			if total_employee[0][0]:
 				label.append(parameter)
 			datasets.append(total_employee[0][0])
