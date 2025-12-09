@@ -96,6 +96,9 @@ def get_chart_data(parameters, filters):
 				.select(Count(employee.name).as_("count"))
 				.where(employee.company == filters.get("company"))
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 52d1b31d3 (fix(Employee Analytics): select active employees only)
 				.where(employee.status == "Active")
 				.where(employee[parameter_field_name] == parameter)
 				.where(Criterion.all(build_qb_match_conditions("Employee")))
