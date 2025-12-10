@@ -40,10 +40,14 @@ def get_columns():
 
 def get_employees(filters):
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> ae098d0d6 (fix: preserve original filters)
 	filters_for_employees = frappe._dict(deepcopy(filters) or {})
 	filters_for_employees["status"] = "Active"
 	filters_for_employees[filters.get("parameter").lower().replace(" ", "_")] = ["is", "set"]
 	filters_for_employees.pop("parameter")
+<<<<<<< HEAD
 	return frappe.get_list(
 		"Employee",
 		filters=filters_for_employees,
@@ -56,6 +60,11 @@ def get_employees(filters):
 		"Employee",
 		filters=filters,
 >>>>>>> 800d73eed (fix(Employee Analytics): replace frappe.db.sql)
+=======
+	return frappe.get_list(
+		"Employee",
+		filters=filters_for_employees,
+>>>>>>> ae098d0d6 (fix: preserve original filters)
 		fields=[
 			"name",
 			"employee_name",
