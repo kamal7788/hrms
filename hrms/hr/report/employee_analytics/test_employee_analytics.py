@@ -30,18 +30,26 @@ class TestEmployeeAnalytics(IntegrationTestCase):
 	def setUp(self):
 		self.company = "_Test Company"
 <<<<<<< HEAD
+<<<<<<< HEAD
 		self.company_2 = create_company("_Test Company 2")
 =======
 >>>>>>> 38faaa812 (test(Employee Analytics): test with branch and grade paramters)
+=======
+		self.company_2 = create_company("_Test Company 2")
+>>>>>>> 042f5635b (fix: filter total employees by selected company)
 
 	def test_branches(self):
 		make_employee("test_analytics1@example.com", company=self.company, branch="Test Branch 1")
 		make_employee("test_analytics2@example.com", company=self.company, branch="Test Branch 2")
 		make_employee("test_analytics3@example.com", company=self.company, branch="Test Branch 2")
 <<<<<<< HEAD
+<<<<<<< HEAD
 		make_employee("test_analytics4@Eexample.com", company=self.company_2)
 =======
 >>>>>>> 38faaa812 (test(Employee Analytics): test with branch and grade paramters)
+=======
+		make_employee("test_analytics4@Eexample.com", company=self.company_2)
+>>>>>>> 042f5635b (fix: filter total employees by selected company)
 
 		employees_with_no_branch = get_employees_without_set_parameter("branch", self.company)
 
@@ -98,6 +106,9 @@ def create_branches():
 def get_employees_without_set_parameter(parameter, company):
 	return frappe.db.count("Employee", {parameter: ("is", "not set"), "company": company, "status": "Active"})
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 042f5635b (fix: filter total employees by selected company)
 
 
 def create_company(company_name):
@@ -115,5 +126,8 @@ def create_company(company_name):
 			}
 		)
 		company = company.save()
+<<<<<<< HEAD
 =======
 >>>>>>> 38faaa812 (test(Employee Analytics): test with branch and grade paramters)
+=======
+>>>>>>> 042f5635b (fix: filter total employees by selected company)
