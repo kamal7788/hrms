@@ -5,8 +5,11 @@ from frappe.desk.page.setup_wizard.setup_wizard import make_records
 from frappe.tests.utils import FrappeTestCase
 =======
 from frappe.tests import IntegrationTestCase
+<<<<<<< HEAD
 from frappe.utils import getdate
 >>>>>>> 38faaa812 (test(Employee Analytics): test with branch and grade paramters)
+=======
+>>>>>>> 06d9af7e8 (chore: remove redandant imports)
 
 from erpnext.setup.doctype.employee.test_employee import make_employee
 
