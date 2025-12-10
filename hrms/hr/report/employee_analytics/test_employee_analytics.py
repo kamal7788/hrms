@@ -1,14 +1,23 @@
 import frappe
 from frappe import _
 from frappe.desk.page.setup_wizard.setup_wizard import make_records
+<<<<<<< HEAD
 from frappe.tests.utils import FrappeTestCase
+=======
+from frappe.tests import IntegrationTestCase
+from frappe.utils import getdate
+>>>>>>> 38faaa812 (test(Employee Analytics): test with branch and grade paramters)
 
 from erpnext.setup.doctype.employee.test_employee import make_employee
 
 from hrms.hr.report.employee_analytics.employee_analytics import execute
 
 
+<<<<<<< HEAD
 class TestEmployeeAnalytics(FrappeTestCase):
+=======
+class TestEmployeeAnalytics(IntegrationTestCase):
+>>>>>>> 38faaa812 (test(Employee Analytics): test with branch and grade paramters)
 	@classmethod
 	def setUpClass(cls):
 		super().setUpClass()
@@ -17,13 +26,19 @@ class TestEmployeeAnalytics(FrappeTestCase):
 
 	def setUp(self):
 		self.company = "_Test Company"
+<<<<<<< HEAD
 		self.company_2 = create_company("_Test Company 2")
+=======
+>>>>>>> 38faaa812 (test(Employee Analytics): test with branch and grade paramters)
 
 	def test_branches(self):
 		make_employee("test_analytics1@example.com", company=self.company, branch="Test Branch 1")
 		make_employee("test_analytics2@example.com", company=self.company, branch="Test Branch 2")
 		make_employee("test_analytics3@example.com", company=self.company, branch="Test Branch 2")
+<<<<<<< HEAD
 		make_employee("test_analytics4@Eexample.com", company=self.company_2)
+=======
+>>>>>>> 38faaa812 (test(Employee Analytics): test with branch and grade paramters)
 
 		employees_with_no_branch = get_employees_without_set_parameter("branch", self.company)
 
@@ -79,6 +94,7 @@ def create_branches():
 
 def get_employees_without_set_parameter(parameter, company):
 	return frappe.db.count("Employee", {parameter: ("is", "not set"), "company": company, "status": "Active"})
+<<<<<<< HEAD
 
 
 def create_company(company_name):
@@ -96,3 +112,5 @@ def create_company(company_name):
 			}
 		)
 		company = company.save()
+=======
+>>>>>>> 38faaa812 (test(Employee Analytics): test with branch and grade paramters)

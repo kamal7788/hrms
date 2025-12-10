@@ -15,7 +15,7 @@ class TestEmployeeBirthday(FrappeTestCase):
 		self.company = "_New Test Company"
 =======
 from frappe.tests import IntegrationTestCase
-from frappe.utils import add_months, getdate
+from frappe.utils import getdate
 
 from erpnext.setup.doctype.employee.test_employee import make_employee
 
