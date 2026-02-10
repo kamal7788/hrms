@@ -2,8 +2,13 @@
 # See license.txt
 
 import frappe
+<<<<<<< HEAD
 from frappe.tests.utils import FrappeTestCase
 from frappe.utils import add_days, today
+=======
+from frappe.tests import IntegrationTestCase
+from frappe.utils import add_days, now_datetime, today
+>>>>>>> a0a96e66e (chore: correct datetime in fnf test setup)
 
 from erpnext.assets.doctype.asset.test_asset import create_asset_data
 from erpnext.setup.doctype.employee.test_employee import make_employee
@@ -85,7 +90,7 @@ def create_asset_movement(employee):
 	movement = frappe.new_doc("Asset Movement")
 	movement.company = "_Test Company"
 	movement.purpose = "Issue"
-	movement.transaction_date = today()
+	movement.transaction_date = now_datetime()
 
 	movement.append("assets", {"asset": asset_name, "to_employee": employee})
 
