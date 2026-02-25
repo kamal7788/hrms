@@ -43,7 +43,7 @@ class TestEmployeeReferral(HRMSTestSuite):
 
 		# Check for Referral reference in additional salary
 
-		add_sal = create_additional_salary(emp_ref)
+		add_sal = create_additional_salary(emp_ref.name)
 		self.assertTrue(add_sal.ref_docname, emp_ref.name)
 
 	def test_status_on_discard(self):

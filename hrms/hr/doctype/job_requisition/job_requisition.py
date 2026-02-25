@@ -53,7 +53,7 @@ class JobRequisition(Document):
 
 
 @frappe.whitelist()
-def make_job_opening(source_name: str, target_doc: str | Document | None = None) -> None:
+def make_job_opening(source_name: str, target_doc: str | Document | None = None) -> Document:
 	def set_missing_values(source, target):
 		target.job_title = source.designation
 		target.status = "Open"

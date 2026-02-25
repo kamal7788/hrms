@@ -196,7 +196,7 @@ class StaffingPlan(Document):
 
 
 @frappe.whitelist()
-def get_designation_counts(designation: str, company: str, job_opening: str | None = None) -> dict:
+def get_designation_counts(designation: str, company: str, job_opening: str | None = None) -> dict | bool:
 	if not designation:
 		return False
 
@@ -222,7 +222,7 @@ def get_active_staffing_plan_details(
 	designation: str,
 	from_date: str | datetime.date | None = None,
 	to_date: str | datetime.date | None = None,
-) -> dict | None:
+) -> list[dict] | None:
 	if from_date is None:
 		from_date = getdate(nowdate())
 	if to_date is None:
