@@ -632,7 +632,7 @@ def get_outstanding_amount_for_claim(claim):
 
 
 @frappe.whitelist()
-def make_bank_entry(dt, dn):
+def make_bank_entry(dt: str, dn: str) -> dict:
 	from erpnext.accounts.doctype.journal_entry.journal_entry import get_default_bank_cash_account
 
 	expense_claim = frappe.get_doc(dt, dn)
@@ -676,7 +676,7 @@ def make_bank_entry(dt, dn):
 
 
 @frappe.whitelist()
-def get_expense_claim_account_and_cost_center(expense_claim_type, company):
+def get_expense_claim_account_and_cost_center(expense_claim_type: str, company: str) -> dict:
 	data = get_expense_claim_account(expense_claim_type, company)
 	cost_center = erpnext.get_default_cost_center(company)
 
@@ -684,7 +684,7 @@ def get_expense_claim_account_and_cost_center(expense_claim_type, company):
 
 
 @frappe.whitelist()
-def get_expense_claim_account(expense_claim_type, company):
+def get_expense_claim_account(expense_claim_type: str, company: str) -> dict:
 	account = frappe.db.get_value(
 		"Expense Claim Account", {"parent": expense_claim_type, "company": company}, "default_account"
 	)
@@ -914,7 +914,9 @@ def validate_expense_claim_in_jv(doc, method=None):
 
 
 @frappe.whitelist()
-def make_expense_claim_for_delivery_trip(source_name, target_doc=None):
+def make_expense_claim_for_delivery_trip(
+	source_name: str, target_doc: str | Document | None = None
+) -> Document:
 	doc = get_mapped_doc(
 		"Delivery Trip",
 		source_name,
@@ -926,7 +928,12 @@ def make_expense_claim_for_delivery_trip(source_name, target_doc=None):
 
 
 @frappe.whitelist()
-def get_allocation_amount(paid_amount=None, claimed_amount=None, return_amount=None, unclaimed_amount=None):
+def get_allocation_amount(
+	paid_amount: str | float | None = None,
+	claimed_amount: str | float | None = None,
+	return_amount: str | float | None = None,
+	unclaimed_amount: str | float | None = None,
+) -> float | None:
 	if unclaimed_amount is not None and return_amount is not None:
 		return flt(unclaimed_amount) - flt(return_amount)
 	elif paid_amount is not None and claimed_amount is not None and return_amount is not None:
