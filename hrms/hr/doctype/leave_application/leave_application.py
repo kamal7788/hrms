@@ -1284,7 +1284,7 @@ def get_leave_entries(employee, leave_type, from_date, to_date):
 
 
 @frappe.whitelist()
-def get_holidays(employee: str, from_date: str, to_date: str) -> int:
+def get_holidays(employee: str, from_date: str | datetime.date, to_date: str | datetime.date) -> int:
 	"""get holidays between two dates for the given employee"""
 	holidays = get_holiday_dates_between_range(employee, from_date, to_date)
 	return len(holidays)
