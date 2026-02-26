@@ -931,8 +931,11 @@ def get_number_of_leave_days(
 
 @frappe.whitelist()
 def get_leave_details(employee: str, date: str | datetime.date, for_salary_slip: bool = False) -> dict:
+<<<<<<< HEAD
 	validate_leave_access(employee)
 
+=======
+>>>>>>> 637c2e7e (fix(Leave Application): missing type hints for whilelisted methods)
 	allocation_records = get_leave_allocation_records(employee, date)
 	leave_allocation = {}
 	precision = cint(frappe.db.get_single_value("System Settings", "float_precision")) or 2
@@ -978,7 +981,7 @@ def get_leave_balance_on(
 	to_date: datetime.date | None = None,
 	consider_all_leaves_in_the_allocation_period: bool = False,
 	for_consumption: bool = False,
-):
+) -> dict[str, float]:
 	"""
 	Returns leave balance till date
 	:param employee: employee name
@@ -1281,7 +1284,7 @@ def get_leave_entries(employee, leave_type, from_date, to_date):
 
 
 @frappe.whitelist()
-def get_holidays(employee, from_date, to_date, holiday_list=None):
+def get_holidays(employee: str, from_date: str, to_date: str) -> int:
 	"""get holidays between two dates for the given employee"""
 	holidays = get_holiday_dates_between_range(employee, from_date, to_date)
 	return len(holidays)
@@ -1293,7 +1296,7 @@ def is_lwp(leave_type):
 
 
 @frappe.whitelist()
-def get_events(start, end, filters=None):
+def get_events(start: str, end: str, filters: str | dict | None = None) -> list[dict]:
 	import json
 
 	filters = json.loads(filters)
@@ -1414,7 +1417,7 @@ def add_holidays(events, start, end, employee, company):
 
 
 @frappe.whitelist()
-def get_mandatory_approval(doctype):
+def get_mandatory_approval(doctype: str) -> str | int | bool:
 	mandatory = ""
 	if doctype == "Leave Application":
 		mandatory = frappe.db.get_single_value("HR Settings", "leave_approver_mandatory_in_leave_application")
@@ -1470,7 +1473,7 @@ def get_approved_leaves_for_period(employee, leave_type, from_date, to_date):
 
 
 @frappe.whitelist()
-def get_leave_approver(employee):
+def get_leave_approver(employee: str) -> str:
 	leave_approver, department = frappe.db.get_value("Employee", employee, ["leave_approver", "department"])
 
 	if not leave_approver and department:
