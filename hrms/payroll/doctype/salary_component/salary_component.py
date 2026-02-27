@@ -97,7 +97,7 @@ class SalaryComponent(Document):
 			)
 
 	@frappe.whitelist()
-	def get_structures_to_be_updated(self):
+	def get_structures_to_be_updated(self) -> list[str]:
 		SalaryStructure = frappe.qb.DocType("Salary Structure")
 		SalaryDetail = frappe.qb.DocType("Salary Detail")
 		return (
@@ -110,7 +110,7 @@ class SalaryComponent(Document):
 		)
 
 	@frappe.whitelist()
-	def update_salary_structures(self, field, value, structures=None):
+	def update_salary_structures(self, field: str, value, structures: list | None = None) -> None:
 		is_formula_related = field == "formula"
 
 		if not structures:
