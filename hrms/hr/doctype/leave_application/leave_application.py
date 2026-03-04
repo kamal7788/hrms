@@ -935,22 +935,16 @@ def get_number_of_leave_days(
 ) -> float:
 	"""Returns number of leave days between 2 dates after considering half day and holidays
 	(Based on the include_holiday setting in Leave Type)"""
-	number_of_days = 0
-	if cint(half_day) == 1:
-		half_day_is_holiday = is_holiday(employee=employee, date=half_day_date)
+	number_of_days = date_diff(to_date, from_date) + 1
 
-		if getdate(from_date) == getdate(to_date):
-			number_of_days = 0.5
-		elif (
+	if cint(half_day) == 1:
+		is_valid_half_day = (
 			half_day_date
 			and getdate(from_date) <= getdate(half_day_date) <= getdate(to_date)
-			and not half_day_is_holiday
-		):
-			number_of_days = date_diff(to_date, from_date) + 0.5
-		else:
-			number_of_days = date_diff(to_date, from_date) + 1
-	else:
-		number_of_days = date_diff(to_date, from_date) + 1
+			and not is_holiday(employee=employee, date=half_day_date)
+		)
+		if is_valid_half_day:
+			number_of_days -= 0.5
 
 	if not frappe.db.get_value("Leave Type", leave_type, "include_holiday"):
 		number_of_days = flt(number_of_days) - flt(
