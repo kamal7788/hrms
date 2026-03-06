@@ -58,7 +58,7 @@ class EmployeeTaxExemptionDeclaration(Document):
 
 
 @frappe.whitelist()
-def make_proof_submission(source_name: str, target_doc: Document | None = None) -> Document:
+def make_proof_submission(source_name: str, target_doc: str | Document | None = None) -> Document:
 	doclist = get_mapped_doc(
 		"Employee Tax Exemption Declaration",
 		source_name,

@@ -2591,7 +2591,7 @@ def get_lwp_or_ppl_for_date_range(employee, start_date, end_date):
 
 
 @frappe.whitelist()
-def make_salary_slip_from_timesheet(source_name: str, target_doc: Document | None = None) -> Document:
+def make_salary_slip_from_timesheet(source_name: str, target_doc: str | Document | None = None) -> Document:
 	target = frappe.new_doc("Salary Slip")
 	set_missing_values(source_name, target)
 	target.run_method("get_emp_and_working_day_details")

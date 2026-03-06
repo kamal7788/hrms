@@ -334,9 +334,9 @@ def get_existing_assignments(employees, salary_structure, from_date):
 @frappe.whitelist()
 def make_salary_slip(
 	source_name: str,
-	target_doc: Document | None = None,
+	target_doc: str | Document | None = None,
 	employee: str | None = None,
-	posting_date: datetime.date | None = None,
+	posting_date: str | datetime.date | None = None,
 	as_print: bool = False,
 	print_format: str | None = None,
 	for_preview: int = 0,

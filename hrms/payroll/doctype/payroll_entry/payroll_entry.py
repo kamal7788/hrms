@@ -1442,7 +1442,7 @@ def remove_payrolled_employees(emp_list, start_date, end_date):
 
 @frappe.whitelist()
 def get_start_end_dates(
-	payroll_frequency: str, start_date: datetime.date | None = None, company: str | None = None
+	payroll_frequency: str, start_date: str | datetime.date | None = None, company: str | None = None
 ) -> frappe._dict:
 	"""Returns dict of start and end dates for given payroll frequency based on start_date"""
 
@@ -1484,7 +1484,7 @@ def get_frequency_kwargs(frequency_name):
 
 
 @frappe.whitelist()
-def get_end_date(start_date: str, frequency: str) -> dict:
+def get_end_date(start_date: str | datetime.date, frequency: str) -> dict:
 	start_date = getdate(start_date)
 	frequency = frequency.lower() if frequency else "monthly"
 	kwargs = get_frequency_kwargs(frequency) if frequency != "bimonthly" else get_frequency_kwargs("monthly")
