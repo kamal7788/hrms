@@ -210,6 +210,32 @@
    "label": "Opening Balances"
   },
   {
+<<<<<<< HEAD
+=======
+   "fieldname": "employee_benefits_section",
+   "fieldtype": "Section Break",
+   "label": "Employee Benefits"
+  },
+  {
+   "fieldname": "employee_benefits",
+   "fieldtype": "Table",
+   "label": "Flexible Benefits",
+   "options": "Employee Benefit Detail"
+  },
+  {
+   "fetch_from": "salary_structure.max_benefits",
+   "fetch_if_empty": 1,
+   "fieldname": "max_benefits",
+   "fieldtype": "Currency",
+   "label": "Maximum Benefit Amount",
+   "options": "currency"
+  },
+  {
+   "fieldname": "column_break_kjvm",
+   "fieldtype": "Column Break"
+  },
+  {
+>>>>>>> f95c03152 (Merge pull request #4184 from krishna-254/fix/incorrect-currency-salary-structure-assignment-max-benefits)
    "fetch_from": "salary_structure.leave_encashment_amount_per_day",
    "fetch_if_empty": 1,
    "fieldname": "leave_encashment_amount_per_day",
@@ -220,7 +246,7 @@
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2026-01-09 11:52:07.106968",
+ "modified": "2026-02-26 14:37:43.779340",
  "modified_by": "Administrator",
  "module": "Payroll",
  "name": "Salary Structure Assignment",
