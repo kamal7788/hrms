@@ -502,7 +502,7 @@ def get_monthly_earned_leave(
 	date_of_joining: str | datetime.date,
 	annual_leaves: float,
 	frequency: str,
-	rounding: float,
+	rounding: str | float,
 	period_start_date: str | datetime.date | None = None,
 	period_end_date: str | datetime.date | None = None,
 	pro_rated: bool = True,
