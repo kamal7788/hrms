@@ -433,11 +433,17 @@ frappe.ui.form.on("Expense Claim Advance", {
 						refresh_field("advances");
 					} else {
 <<<<<<< HEAD
+<<<<<<< HEAD
 						frm.doc.advances = [];
 						frappe.validated = false;
 						refresh_field("advances");
 =======
 >>>>>>> c8be6ec7 (fix(employee_advance): add validation to fetch only selected employee advance)
+=======
+						frm.doc.advances = [];
+						frappe.validated = false;
+						refresh_field("advances");
+>>>>>>> b507d800 (fix: clear advance table on validation failure)
 						frappe.throw(
 							__("Selected employee advance is not of employee {0}", [
 								frm.doc.employee,
