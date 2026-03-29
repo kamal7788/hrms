@@ -713,6 +713,7 @@ def get_expense_claim_account(expense_claim_type, company):
 
 
 @frappe.whitelist()
+<<<<<<< HEAD
 def get_advances(expense_claim, advance_id=None):
 	import json
 
@@ -721,6 +722,9 @@ def get_advances(expense_claim, advance_id=None):
 	expense_claim_doc = frappe.get_doc(expense_claim)
 	expense_claim_doc.advances = []
 
+=======
+def get_advances(employee: str, advance_id: str | None = None):
+>>>>>>> 19d00af50 (refactor: add type hints in get_advance)
 	advance = frappe.qb.DocType("Employee Advance")
 
 	query = frappe.qb.from_(advance).select(
