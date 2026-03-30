@@ -167,6 +167,10 @@ class TestExpenseClaim(FrappeTestCase):
 	def test_other_employee_advances_link_with_claim(self):
 		from hrms.hr.doctype.employee_advance.test_employee_advance import make_employee_advance
 
+<<<<<<< HEAD
+=======
+		frappe.db.delete("Employee Advance")
+>>>>>>> 582203e3 (test(employee_advance): add test to validate other employees advance link in expense claim)
 		payable_account = get_payable_account("_Test Company")
 
 		employee = make_employee("test_employee@employee.advance", "_Test Company")
