@@ -387,9 +387,20 @@ class ExpenseClaim(AccountsController, PWANotificationsMixin):
 			ref_doc = frappe.db.get_value(
 				"Employee Advance",
 				d.employee_advance,
-				["posting_date", "paid_amount", "claimed_amount", "return_amount", "advance_account"],
+				[
+					"employee",
+					"posting_date",
+					"paid_amount",
+					"claimed_amount",
+					"return_amount",
+					"advance_account",
+				],
 				as_dict=1,
 			)
+
+			if self.employee != ref_doc.employee:
+				frappe.throw(_("Selected employee advance is not of employee {}").format(self.employee))
+
 			d.posting_date = ref_doc.posting_date
 			d.advance_account = ref_doc.advance_account
 			d.advance_paid = ref_doc.paid_amount
