@@ -501,6 +501,7 @@ class ExpenseClaim(AccountsController, PWANotificationsMixin):
 			adv_doc = frappe.db.get_value(
 				"Employee Advance",
 				d.employee_advance,
+<<<<<<< HEAD
 				["posting_date", "advance_account", "paid_amount"],
 				as_dict=1,
 			)
@@ -513,6 +514,26 @@ class ExpenseClaim(AccountsController, PWANotificationsMixin):
 			d.advance_account = adv_doc.advance_account
 			d.advance_paid = aple_doc if aple_doc else adv_doc.paid_amount
 			# d.unclaimed_amount = flt(ref_doc.paid_amount) - flt(ref_doc.claimed_amount)
+=======
+				[
+					"employee",
+					"posting_date",
+					"paid_amount",
+					"claimed_amount",
+					"return_amount",
+					"advance_account",
+				],
+				as_dict=1,
+			)
+
+			if self.employee != ref_doc.employee:
+				frappe.throw(_("Selected employee advance is not of employee {}").format(self.employee))
+
+			d.posting_date = ref_doc.posting_date
+			d.advance_account = ref_doc.advance_account
+			d.advance_paid = ref_doc.paid_amount
+			d.unclaimed_amount = flt(ref_doc.paid_amount) - flt(ref_doc.claimed_amount)
+>>>>>>> 93ecb5181 (fix(employee_advance): validate selected employee advance on server side)
 
 			if d.allocated_amount and flt(d.allocated_amount) > flt(
 				flt(d.unclaimed_amount) - flt(d.return_amount), precision
