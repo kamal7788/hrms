@@ -60,7 +60,7 @@
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Status",
-   "options": "Open\nReplied\nRejected\nHold\nAccepted",
+   "options": "Open\nReplied\nShortlisted\nRejected\nHold\nAccepted",
    "reqd": 1
   },
   {
@@ -200,7 +200,7 @@
  "idx": 1,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-03-31 14:29:57.420235",
+ "modified": "2026-03-31 18:02:22.236160",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Job Applicant",

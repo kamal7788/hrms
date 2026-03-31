@@ -21,41 +21,29 @@ frappe.ui.form.on("Job Applicant", {
 
 	create_custom_buttons: function (frm) {
 		if (!frm.doc.__islocal && frm.doc.status !== "Rejected" && frm.doc.status !== "Accepted") {
-			frm.add_custom_button(
-				__("Interview"),
-				function () {
-					frm.events.create_dialog(frm);
-				},
-				__("Create"),
-			);
+			frm.add_custom_button(__("Create Interview"), function () {
+				frm.events.create_dialog(frm);
+			});
 		}
 
 		if (!frm.doc.__islocal && frm.doc.status == "Accepted") {
 			if (frm.doc.__onload && frm.doc.__onload.job_offer) {
 				$('[data-doctype="Employee Onboarding"]').find("button").show();
 				$('[data-doctype="Job Offer"]').find("button").hide();
-				frm.add_custom_button(
-					__("Job Offer"),
-					function () {
-						frappe.set_route("Form", "Job Offer", frm.doc.__onload.job_offer);
-					},
-					__("View"),
-				);
+				frm.add_custom_button(__("View Job Offer"), function () {
+					frappe.set_route("Form", "Job Offer", frm.doc.__onload.job_offer);
+				});
 			} else {
 				$('[data-doctype="Employee Onboarding"]').find("button").hide();
 				$('[data-doctype="Job Offer"]').find("button").show();
-				frm.add_custom_button(
-					__("Job Offer"),
-					function () {
-						frappe.route_options = {
-							job_applicant: frm.doc.name,
-							applicant_name: frm.doc.applicant_name,
-							designation: frm.doc.job_opening || frm.doc.designation,
-						};
-						frappe.new_doc("Job Offer");
-					},
-					__("Create"),
-				);
+				frm.add_custom_button(__("Create Job Offer"), function () {
+					frappe.route_options = {
+						job_applicant: frm.doc.name,
+						applicant_name: frm.doc.applicant_name,
+						designation: frm.doc.job_opening || frm.doc.designation,
+					};
+					frappe.new_doc("Job Offer");
+				});
 			}
 		}
 	},
@@ -90,6 +78,11 @@ frappe.ui.form.on("Job Applicant", {
 					fieldname: "interview_type",
 					fieldtype: "Link",
 					options: "Interview Type",
+					get_query: function () {
+						return {
+							filters: [["designation", "=", frm.doc.designation]],
+						};
+					},
 				},
 			],
 			primary_action_label: __("Create Interview"),
