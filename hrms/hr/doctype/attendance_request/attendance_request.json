@@ -129,6 +129,7 @@
   },
   {
    "default": "0",
+   "description": "Check if any of the day(s) selected for request is(are) holiday(s)",
    "fieldname": "include_holidays",
    "fieldtype": "Check",
    "label": "Include Holidays"
@@ -136,11 +137,15 @@
  ],
  "is_submittable": 1,
  "links": [],
+<<<<<<< HEAD
  "modified": "2023-12-20 16:18:31.864719",
+=======
+ "modified": "2026-04-06 15:27:42.043838",
+>>>>>>> 03e50bf32 (fix: better description and validation message for when attendance request day is holiday)
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Attendance Request",
- "naming_rule": "Expression (old style)",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {
@@ -201,7 +206,12 @@
    "write": 1
   }
  ],
+<<<<<<< HEAD
  "sort_field": "modified",
+=======
+ "row_format": "Dynamic",
+ "sort_field": "creation",
+>>>>>>> 03e50bf32 (fix: better description and validation message for when attendance request day is holiday)
  "sort_order": "DESC",
  "states": [],
  "title_field": "employee_name",
