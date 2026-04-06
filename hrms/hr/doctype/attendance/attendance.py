@@ -340,7 +340,7 @@ def mark_attendance(
 
 
 @frappe.whitelist()
-def mark_bulk_attendance(data):
+def mark_bulk_attendance(data: str | dict):
 	import json
 
 	if isinstance(data, str):
