@@ -2,6 +2,7 @@
 # See license.txt
 
 import frappe
+from frappe.tests import change_settings
 from frappe.tests.utils import FrappeTestCase
 from frappe.utils import add_days, add_months, get_year_ending, get_year_start, getdate
 
@@ -11,13 +12,15 @@ from hrms.hr.doctype.leave_application.test_leave_application import make_alloca
 from hrms.payroll.doctype.salary_slip.test_salary_slip import (
 	make_leave_application,
 )
-from hrms.tests.test_utils import add_date_to_holiday_list, get_first_sunday
+from hrms.tests.test_utils import add_date_to_holiday_list
 
 test_dependencies = ["Employee"]
 
 
 class TestAttendanceRequest(FrappeTestCase):
 	def setUp(self):
+		from erpnext.setup.doctype.holiday_list.test_holiday_list import make_holiday_list
+
 		for doctype in ["Attendance Request", "Attendance"]:
 			frappe.db.delete(doctype)
 
@@ -246,7 +249,7 @@ class TestAttendanceRequest(FrappeTestCase):
 		)
 		self.assertEqual(half_day_status, "Absent")
 
-	@HRMSTestSuite.change_settings("HR Settings", {"allow_multiple_shift_assignments": True})
+	@change_settings("HR Settings", {"allow_multiple_shift_assignments": True})
 	def test_overlap_with_different_shifts(self):
 		shift_1 = create_shift("Morning Shift", "08:00:00", "12:00:00")
 		shift_2 = create_shift("Evening Shift", "14:00:00", "18:00:00")
