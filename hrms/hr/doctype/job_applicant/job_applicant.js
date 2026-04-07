@@ -17,7 +17,7 @@ frappe.ui.form.on("Job Applicant", {
 		});
 		frm.events.create_custom_buttons(frm);
 		frm.events.make_dashboard(frm);
-		frappe.boot.desk_settings.form_navigation_buttons = 1;
+		frm.toolbar.make_navigation();
 	},
 
 	create_custom_buttons: function (frm) {
