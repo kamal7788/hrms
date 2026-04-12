@@ -16,7 +16,7 @@ frappe.ui.form.on("Job Applicant", {
 			};
 		});
 		frm.events.create_custom_buttons(frm);
-		frm.events.make_dashboard(frm);
+		frm.events.get_interview_for_dashboard(frm);
 		frm.toolbar.make_navigation();
 	},
 
@@ -63,7 +63,8 @@ frappe.ui.form.on("Job Applicant", {
 		}
 	},
 
-	make_dashboard: function (frm) {
+	get_interview_for_dashboard: function (frm) {
+		$("div").remove(".form-dashboard-section.custom");
 		frappe.call({
 			method: "hrms.hr.doctype.job_applicant.job_applicant.get_interview_details",
 			args: {
@@ -71,17 +72,20 @@ frappe.ui.form.on("Job Applicant", {
 			},
 			callback: function (r) {
 				if (r.message) {
-					$("div").remove(".form-dashboard-section.custom");
-					frm.dashboard.add_section(
-						frappe.render_template("job_applicant_dashboard", {
-							data: r.message.interviews,
-							number_of_stars: r.message.stars,
-						}),
-						__("Interview Summary"),
-					);
+					frm.events.make_dashboard(frm, r.message);
 				}
 			},
 		});
+	},
+
+	make_dashboard: function (frm, message) {
+		frm.dashboard.add_section(
+			frappe.render_template("job_applicant_dashboard", {
+				data: message.interviews,
+				number_of_stars: message.stars,
+			}),
+			__("Interview Summary"),
+		);
 	},
 
 	create_dialog: function (frm) {

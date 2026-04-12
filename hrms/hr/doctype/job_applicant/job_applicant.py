@@ -131,6 +131,9 @@ def get_interview_details(job_applicant):
 		filters={"job_applicant": job_applicant, "docstatus": ["!=", 2]},
 		fields=["name", "interview_type", "scheduled_on", "average_rating", "status"],
 	)
+	if not interview_details:
+		return None
+
 	interview_detail_map = {}
 	meta = frappe.get_meta("Interview")
 	number_of_stars = meta.get_options("average_rating") or 5
