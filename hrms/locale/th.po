@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: frappe\n"
 "Report-Msgid-Bugs-To: contact@frappe.io\n"
 "POT-Creation-Date: 2026-04-12 09:46+0000\n"
-"PO-Revision-Date: 2026-04-13 16:27\n"
+"PO-Revision-Date: 2026-04-14 16:22\n"
 "Last-Translator: contact@frappe.io\n"
 "Language-Team: Thai\n"
 "MIME-Version: 1.0\n"
@@ -6319,7 +6319,7 @@ msgstr "สีเขียวมะนาว"
 #. Label of the limits_tab (Tab Break) field in DocType 'Leave Type'
 #: hrms/hr/doctype/leave_type/leave_type.json
 msgid "Limits"
-msgstr ""
+msgstr "ขีดจำกัด"
 
 #. Description of the 'Appraisal Linking' (Section Break) field in DocType
 #. 'Goal'
