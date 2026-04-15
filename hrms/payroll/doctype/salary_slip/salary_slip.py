@@ -1334,17 +1334,14 @@ class SalarySlip(TransactionBase):
 		)
 
 		for additional_salary in additional_salaries:
-<<<<<<< HEAD
-=======
 			component_data = get_salary_component_data(additional_salary.component)
 			remove_if_zero_valued = frappe.get_cached_value(
 				"Salary Component", additional_salary.component, "remove_if_zero_valued"
 			)
 			if flt(additional_salary.amount) == 0 and remove_if_zero_valued:
 				continue
->>>>>>> ca9d4e193 (fix: handle zero-value additional salary components to avoid invalid salary slip rows)
 			self.update_component_row(
-				get_salary_component_data(additional_salary.component),
+				component_data,
 				additional_salary.amount,
 				component_type,
 				additional_salary,
