@@ -1103,24 +1103,68 @@ class TestLeaveAllocation(HRMSTestSuite):
 
 		frappe.delete_doc_if_exists("Employee", employee2.name, force=1)
 
+	def test_exceed_newly_allocated_leaves(self):
+		this_year_start = get_year_start(getdate())
+		this_year_end = get_year_ending(getdate())
+		last_year_start = add_months(this_year_start, -12)
+		last_year_end = add_months(this_year_end, -12)
+
+		make_policy_assignment(
+			self.employee,
+			allocate_on_day="Last Day",
+			start_date=last_year_start,
+			end_date=last_year_end,
+			earned_leave_frequency="Monthly",
+			annual_allocation=11,
+		)
+		frappe.flags.current_date = this_year_start
+		make_policy_assignment(
+			self.employee,
+			allocate_on_day="Last Day",
+			start_date=this_year_start,
+			end_date=this_year_end,
+			earned_leave_frequency="Monthly",
+			annual_allocation=24,
+			carry_forward=1,
+		)
+		frappe.db.set_value("Leave Type", "Test Earned Leave", "max_leaves_allowed", 12)
+		frappe.flags.current_date = get_last_day(this_year_start)
+		allocate_earned_leaves()
+		leave_balance = get_leave_balance_on(self.employee.name, self.leave_type, frappe.flags.current_date)
+		leave_allocation = frappe.get_value(
+			"Leave Allocation",
+			{"employee": self.employee.name, "leave_type": "Test Earned Leave", "from_date": this_year_start},
+			"total_leaves_allocated",
+		)
+		self.assertEqual(leave_allocation, 12)
+		self.assertEqual(leave_balance, 12)
+
 
 def create_earned_leave_type(
 	leave_type, allocate_on_day="Last Day", rounding=0.5, earned_leave_frequency="Monthly"
 ):
-	frappe.delete_doc_if_exists("Leave Type", leave_type, force=1)
-	frappe.delete_doc_if_exists("Leave Type", "Test Earned Leave Type", force=1)
-	frappe.delete_doc_if_exists("Leave Type", "Test Earned Leave Type 2", force=1)
-
-	return frappe.get_doc(
-		leave_type_name=leave_type,
-		doctype="Leave Type",
-		is_earned_leave=1,
-		earned_leave_frequency=earned_leave_frequency,
-		rounding=rounding,
-		is_carry_forward=1,
-		allocate_on_day=allocate_on_day,
-		max_leaves_allowed=0,
-	).insert()
+	if frappe.db.exists("Leave Type", leave_type):
+		doc = frappe.get_doc("Leave Type", leave_type)
+		doc.update(
+			{
+				"allocate_on_day": allocate_on_day,
+				"rounding": rounding,
+				"earned_leave_frequency": earned_leave_frequency,
+			}
+		)
+		doc.save()
+		return doc
+	else:
+		return frappe.get_doc(
+			leave_type_name=leave_type,
+			doctype="Leave Type",
+			is_earned_leave=1,
+			earned_leave_frequency=earned_leave_frequency,
+			rounding=rounding,
+			is_carry_forward=1,
+			allocate_on_day=allocate_on_day,
+			max_leaves_allowed=0,
+		).insert()
 
 
 def create_leave_period(name, start_date=None, end_date=None):
