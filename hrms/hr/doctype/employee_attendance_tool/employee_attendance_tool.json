@@ -176,9 +176,14 @@
  ],
  "grid_page_length": 50,
  "hide_toolbar": 1,
+ "is_virtual": 1,
  "issingle": 1,
  "links": [],
+<<<<<<< HEAD
  "modified": "2025-05-26 09:42:36.888216",
+=======
+ "modified": "2026-04-22 11:16:10.561980",
+>>>>>>> bd1502d00 (fix: Make employee attendance tool a virtual doctype)
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Employee Attendance Tool",
