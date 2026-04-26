@@ -21,7 +21,7 @@ from frappe.utils import (
 )
 
 from erpnext.buying.doctype.supplier_scorecard.supplier_scorecard import daterange
-from erpnext.setup.doctype.employee.employee import get_holiday_list_for_employee, is_holiday
+from erpnext.setup.doctype.employee.employee import get_holiday_list_for_employee
 
 import hrms
 from hrms.api import get_current_employee_info
@@ -229,7 +229,15 @@ class LeaveApplication(Document, PWANotificationsMixin):
 		if self.from_date and self.to_date and (getdate(self.to_date) < getdate(self.from_date)):
 			frappe.throw(_("To date cannot be before from date"))
 
-		self.validate_half_day_date()
+		if (
+			self.half_day
+			and self.half_day_date
+			and (
+				getdate(self.half_day_date) < getdate(self.from_date)
+				or getdate(self.half_day_date) > getdate(self.to_date)
+			)
+		):
+			frappe.throw(_("Half Day Date should be between From Date and To Date"))
 
 		if not is_lwp(self.leave_type):
 			self.validate_dates_across_allocation()
@@ -907,17 +915,6 @@ class LeaveApplication(Document, PWANotificationsMixin):
 			frappe.db.get_single_value("HR Settings", "prevent_self_leave_approval"),
 		)
 
-	@frappe.whitelist()
-	def validate_half_day_date(self) -> bool:
-		if not self.half_day:
-			return
-
-		if is_holiday(employee=self.employee, date=self.half_day_date):
-			frappe.throw(_("Half Day Date cannot be a holiday"))
-
-		if not (getdate(self.from_date) <= getdate(self.half_day_date) <= getdate(self.to_date)):
-			frappe.throw(_("Half Day Date should be between From Date and To Date"))
-
 
 def get_allocation_expiry_for_cf_leaves(
 	employee: str, leave_type: str, to_date: datetime.date, from_date: datetime.date
@@ -975,16 +972,16 @@ def get_number_of_leave_days(
 ) -> float:
 	"""Returns number of leave days between 2 dates after considering half day and holidays
 	(Based on the include_holiday setting in Leave Type)"""
-	number_of_days = date_diff(to_date, from_date) + 1
-
+	number_of_days = 0
 	if cint(half_day) == 1:
-		is_valid_half_day = (
-			half_day_date
-			and getdate(from_date) <= getdate(half_day_date) <= getdate(to_date)
-			and not is_holiday(employee=employee, date=half_day_date)
-		)
-		if is_valid_half_day:
-			number_of_days -= 0.5
+		if getdate(from_date) == getdate(to_date):
+			number_of_days = 0.5
+		elif half_day_date and getdate(from_date) <= getdate(half_day_date) <= getdate(to_date):
+			number_of_days = date_diff(to_date, from_date) + 0.5
+		else:
+			number_of_days = date_diff(to_date, from_date) + 1
+	else:
+		number_of_days = date_diff(to_date, from_date) + 1
 
 	if not frappe.db.get_value("Leave Type", leave_type, "include_holiday"):
 		number_of_days = flt(number_of_days) - flt(get_holidays(employee, from_date, to_date))
