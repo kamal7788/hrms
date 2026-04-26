@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: frappe\n"
 "Report-Msgid-Bugs-To: contact@frappe.io\n"
 "POT-Creation-Date: 2026-04-19 09:46+0000\n"
-"PO-Revision-Date: 2026-04-22 18:10\n"
+"PO-Revision-Date: 2026-04-24 18:09\n"
 "Last-Translator: contact@frappe.io\n"
 "Language-Team: Italian\n"
 "MIME-Version: 1.0\n"
@@ -9509,7 +9509,7 @@ msgstr ""
 #: hrms/hr/workspace/shift_&_attendance/shift_&_attendance.json
 #: hrms/workspace_sidebar/shift_&_attendance.json
 msgid "Shift & Attendance"
-msgstr "Turno e presenze"
+msgstr "Turni e presenze"
 
 #. Label of the shift_actual_end (Datetime) field in DocType 'Employee Checkin'
 #: hrms/hr/doctype/employee_checkin/employee_checkin.json
