@@ -11,9 +11,6 @@ from frappe.utils import getdate
 
 
 class EmployeeAttendanceTool(Document):
-<<<<<<< HEAD
-	pass
-=======
 	# begin: auto-generated types
 	# This code is auto-generated. Do not modify anything in this block.
 
@@ -60,7 +57,6 @@ class EmployeeAttendanceTool(Document):
 
 	def delete(self):
 		pass
->>>>>>> bd1502d0 (fix: Make employee attendance tool a virtual doctype)
 
 
 @frappe.whitelist()
