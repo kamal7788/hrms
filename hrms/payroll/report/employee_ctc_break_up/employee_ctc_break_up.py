@@ -55,8 +55,19 @@ class SalaryBreakupReport:
 		)
 		self.net_pay = self.salary_slip.net_pay
 		self.gross_pay = self.salary_slip.gross_pay
+<<<<<<< HEAD
 
 >>>>>>> 211d83aa (feat: Employee CTC Breakup report)
+=======
+		self.payroll_frequency = self.salary_slip.payroll_frequency
+		self.cycle_multiplier = {
+			"Monthly": 12,
+			"Fortnightly": 24,
+			"Bimonthly": 6,
+			"Weekly": 52,
+			"Daily": 365,
+		}.get(self.payroll_frequency)
+>>>>>>> 93076125 (feat: support for all available payroll frequencies)
 		self.salary_components = []
 		self.earning_components = []
 		self.deduction_components = []
@@ -109,10 +120,14 @@ class SalaryBreakupReport:
 			{
 				"salary_component": component.salary_component,
 <<<<<<< HEAD
+<<<<<<< HEAD
 				"per_cycle": component.amount,
 =======
 				"monthly": component.amount,
 >>>>>>> 211d83aa (feat: Employee CTC Breakup report)
+=======
+				"per_cycle": component.amount,
+>>>>>>> 93076125 (feat: support for all available payroll frequencies)
 				"abbr": component.abbr,
 				"is_tax_component": component.variable_based_on_taxable_salary,
 				"component_type": component.parentfield,
@@ -134,10 +149,14 @@ class SalaryBreakupReport:
 	def calculate_yearly_amounts_and_percent_of_ctc(self):
 		for component in self.salary_components:
 <<<<<<< HEAD
+<<<<<<< HEAD
 			annual_amount = component.get("per_cycle", 0) * self.cycle_multiplier
 =======
 			annual_amount = component.get("monthly", 0) * 12
 >>>>>>> 211d83aa (feat: Employee CTC Breakup report)
+=======
+			annual_amount = component.get("per_cycle", 0) * self.cycle_multiplier
+>>>>>>> 93076125 (feat: support for all available payroll frequencies)
 			component.update(
 				{
 					"annual": flt(annual_amount, 2),
@@ -165,10 +184,14 @@ class SalaryBreakupReport:
 				component.get("formula") or "-"
 				if component.get("amount_based_on_formula")
 <<<<<<< HEAD
+<<<<<<< HEAD
 				else component.get("per_cycle") or "-"
 =======
 				else component.get("monthly") or "-"
 >>>>>>> 211d83aa (feat: Employee CTC Breakup report)
+=======
+				else component.get("per_cycle") or "-"
+>>>>>>> 93076125 (feat: support for all available payroll frequencies)
 			)
 
 	def set_totals_row_for_component_types(self):
@@ -190,10 +213,14 @@ class SalaryBreakupReport:
 				"formula": "",
 				"bold": True,
 <<<<<<< HEAD
+<<<<<<< HEAD
 				"per_cycle": calculate_total("per_cycle", components),
 =======
 				"monthly": calculate_total("monthly", components),
 >>>>>>> 211d83aa (feat: Employee CTC Breakup report)
+=======
+				"per_cycle": calculate_total("per_cycle", components),
+>>>>>>> 93076125 (feat: support for all available payroll frequencies)
 				"annual": calculate_total("annual", components),
 				"percent_of_ctc": self.calculate_percent_of_ctc(calculate_total("annual", components)),
 			}
@@ -209,6 +236,7 @@ class SalaryBreakupReport:
 				"type": "",
 				"formula": "",
 <<<<<<< HEAD
+<<<<<<< HEAD
 				"per_cycle": self.net_pay,
 				"annual": self.net_pay * self.cycle_multiplier,
 				"percent_of_ctc": self.calculate_percent_of_ctc(self.net_pay * self.cycle_multiplier),
@@ -217,6 +245,11 @@ class SalaryBreakupReport:
 				"annual": self.net_pay * 12,
 				"percent_of_ctc": self.calculate_percent_of_ctc(self.net_pay),
 >>>>>>> 211d83aa (feat: Employee CTC Breakup report)
+=======
+				"per_cycle": self.net_pay,
+				"annual": self.net_pay * self.cycle_multiplier,
+				"percent_of_ctc": self.calculate_percent_of_ctc(self.net_pay * self.cycle_multiplier),
+>>>>>>> 93076125 (feat: support for all available payroll frequencies)
 				"bold": True,
 			}
 		]
@@ -226,6 +259,7 @@ class SalaryBreakupReport:
 				"type": "",
 				"formula": "",
 <<<<<<< HEAD
+<<<<<<< HEAD
 				"per_cycle": self.gross_pay,
 				"annual": self.gross_pay * self.cycle_multiplier,
 				"percent_of_ctc": self.calculate_percent_of_ctc(self.gross_pay * self.cycle_multiplier),
@@ -234,6 +268,11 @@ class SalaryBreakupReport:
 				"annual": self.gross_pay * 12,
 				"percent_of_ctc": self.calculate_percent_of_ctc(self.gross_pay),
 >>>>>>> 211d83aa (feat: Employee CTC Breakup report)
+=======
+				"per_cycle": self.gross_pay,
+				"annual": self.gross_pay * self.cycle_multiplier,
+				"percent_of_ctc": self.calculate_percent_of_ctc(self.gross_pay * self.cycle_multiplier),
+>>>>>>> 93076125 (feat: support for all available payroll frequencies)
 				"bold": True,
 			}
 		]
@@ -256,24 +295,24 @@ class SalaryBreakupReport:
 		return format_value(amount, currency=self.currency)
 =======
 	def get_summary(self):
-		monthly_ctc = flt(self.ctc / 12, 2)
+		per_cycle_ctc = flt(self.ctc / self.cycle_multiplier, 2)
 		return [
 			{"value": self.ctc, "label": _("Annual CTC"), "datatype": "Currency", "currency": self.currency},
 			{
-				"value": monthly_ctc,
-				"label": _("Monthly CTC"),
+				"value": per_cycle_ctc,
+				"label": _(f"{self.payroll_frequency} CTC"),
 				"datatype": "Currency",
 				"currency": self.currency,
 			},
 			{
 				"value": self.gross_pay,
-				"label": _("Monthly Gross Pay"),
+				"label": _(f"{self.payroll_frequency} Gross Pay"),
 				"datatype": "Currency",
 				"currency": self.currency,
 			},
 			{
 				"value": self.net_pay,
-				"label": _("Monthly Net Pay"),
+				"label": _(f"{self.payroll_frequency} Net Pay"),
 				"datatype": "Currency",
 				"currency": self.currency,
 			},
@@ -326,8 +365,8 @@ class SalaryBreakupReport:
 				"width": 200,
 			},
 			{
-				"label": _("Monthly"),
-				"fieldname": "monthly",
+				"label": _(self.payroll_frequency),
+				"fieldname": "per_cycle",
 				"fieldtype": "Currency",
 				"width": 200,
 				"options": "currency",
