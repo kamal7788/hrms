@@ -25,9 +25,12 @@ frappe.query_reports["Employee CTC Break-up"] = {
 					},
 				};
 			},
+<<<<<<< HEAD
 			on_change: function () {
 				frappe.query_report.set_filter_value("salary_structure_assignment", "");
 			},
+=======
+>>>>>>> 211d83aa (feat: Employee CTC Breakup report)
 		},
 		{
 			fieldname: "salary_structure_assignment",
@@ -49,11 +52,15 @@ frappe.query_reports["Employee CTC Break-up"] = {
 	],
 	formatter: function (value, row, column, data, default_formatter) {
 		value = default_formatter(value, row, column, data);
+<<<<<<< HEAD
 		if (data?.bold && value) value = `<strong>${value}</strong>`;
 		if (column.fieldname == "type" && value) {
 			let indicator_color = value === "Fixed" ? "blue" : "orange";
 			value = `<span class="indicator-pill no-indicator-dot ${indicator_color}">${value}</span>`;
 		}
+=======
+		if (data?.bold) value = `<strong>${value}</strong>`;
+>>>>>>> 211d83aa (feat: Employee CTC Breakup report)
 		return value;
 	},
 };
