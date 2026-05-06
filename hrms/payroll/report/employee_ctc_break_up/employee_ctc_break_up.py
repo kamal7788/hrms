@@ -4,12 +4,16 @@
 import frappe
 from frappe import _
 <<<<<<< HEAD
+<<<<<<< HEAD
 from frappe.utils import flt, get_link_to_form
 from frappe.utils.formatters import format_value
 from frappe.utils.jinja import render_template
 =======
 from frappe.utils import flt
 >>>>>>> 211d83aa (feat: Employee CTC Breakup report)
+=======
+from frappe.utils import flt, get_link_to_form
+>>>>>>> 687b2617 (feat: validate filters and ctc)
 
 from hrms.payroll.doctype.salary_structure.salary_structure import make_salary_slip
 
@@ -17,6 +21,7 @@ from hrms.payroll.doctype.salary_structure.salary_structure import make_salary_s
 class SalaryBreakupReport:
 	def __init__(self, employee, salary_structure_assignment):
 		self.employee = employee
+<<<<<<< HEAD
 <<<<<<< HEAD
 		self.salary_structure_assignment = salary_structure_assignment
 
@@ -26,6 +31,13 @@ class SalaryBreakupReport:
 				{"name": salary_structure_assignment, "employee": employee},
 				["salary_structure", "currency", "from_date", "income_tax_slab", "ctc"],
 			)
+=======
+		self.ctc = frappe.db.get_value("Employee", employee, "ctc")
+		self.validate_ctc()
+
+		self.salary_structure, self.currency = frappe.get_value(
+			"Salary Structure Assignment", salary_structure_assignment, ["salary_structure", "currency"]
+>>>>>>> 687b2617 (feat: validate filters and ctc)
 		)
 		self.validate_ctc()
 		self.salary_slip = make_salary_slip(
@@ -76,22 +88,32 @@ class SalaryBreakupReport:
 		self.total_gross_earnings = []
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 687b2617 (feat: validate filters and ctc)
 	def validate_ctc(self):
 		if not self.ctc:
 			frappe.throw(
 				_("Please set cost to company(CTC) for employee {0} in the {1}").format(
 					frappe.bold(self.employee),
+<<<<<<< HEAD
 					get_link_to_form(
 						"Salary Structure Assignment",
 						self.salary_structure_assignment,
 						"Salary Structure Assignment",
 					),
+=======
+					get_link_to_form("Employee", self.employee + "#salary_information", "employee master."),
+>>>>>>> 687b2617 (feat: validate filters and ctc)
 				),
 				title=_("CTC Missing for Employee"),
 			)
 
+<<<<<<< HEAD
 =======
 >>>>>>> 211d83aa (feat: Employee CTC Breakup report)
+=======
+>>>>>>> 687b2617 (feat: validate filters and ctc)
 	def get_data(self):
 		self.set_salary_component_details()
 		self.calculate_yearly_amounts_and_percent_of_ctc()
@@ -437,6 +459,7 @@ def execute(filters: dict | None = None):
 	every time the report is refreshed or a filter is updated.
 	"""
 <<<<<<< HEAD
+<<<<<<< HEAD
 	employee = filters.get("employee")
 	salary_structure_assignment = filters.get("salary_structure_assignment")
 
@@ -462,7 +485,24 @@ def execute(filters: dict | None = None):
 =======
 
 	salary_structure_assignment = filters.get("salary_structure_assignment")
+=======
+>>>>>>> 687b2617 (feat: validate filters and ctc)
 	employee = filters.get("employee")
+	salary_structure_assignment = filters.get("salary_structure_assignment")
+
+	missing_filter = (
+		"Employee"
+		if not employee
+		else "Salary Structure Assignment"
+		if not salary_structure_assignment
+		else None
+	)
+	if missing_filter:
+		frappe.throw(
+			_("Please set {0} to get CTC report").format(frappe.bold(missing_filter)),
+			title=_("Missing value for filters"),
+		)
+
 	salary_breakup_report = SalaryBreakupReport(employee, salary_structure_assignment)
 
 	data = salary_breakup_report.get_data()
