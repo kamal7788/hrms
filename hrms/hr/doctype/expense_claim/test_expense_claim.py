@@ -193,7 +193,7 @@ class TestExpenseClaim(HRMSTestSuite):
 		from hrms.hr.doctype.employee_advance.test_employee_advance import (
 			get_advances_for_claim,
 			make_employee_advance,
-			make_journal_entry_for_advance,
+			manual_journal_entry_for_advance,
 		)
 
 		frappe.db.delete("Employee Advance")
@@ -204,7 +204,7 @@ class TestExpenseClaim(HRMSTestSuite):
 		)
 
 		advance = make_employee_advance(claim.employee)
-		pe = make_journal_entry_for_advance(advance)
+		pe = manual_journal_entry_for_advance(advance)
 		pe.submit()
 
 		# claim for already paid out advances
@@ -219,7 +219,7 @@ class TestExpenseClaim(HRMSTestSuite):
 		from hrms.hr.doctype.employee_advance.test_employee_advance import (
 			get_advances_for_claim,
 			make_employee_advance,
-			make_journal_entry_for_advance,
+			manual_journal_entry_for_advance,
 		)
 
 		frappe.db.delete("Employee Advance")
@@ -238,7 +238,7 @@ class TestExpenseClaim(HRMSTestSuite):
 		claim.save()
 
 		advance = make_employee_advance(claim.employee)
-		pe = make_journal_entry_for_advance(advance)
+		pe = manual_journal_entry_for_advance(advance)
 		pe.submit()
 
 		# claim for already paid out advances
@@ -253,7 +253,7 @@ class TestExpenseClaim(HRMSTestSuite):
 		from hrms.hr.doctype.employee_advance.test_employee_advance import (
 			get_advances_for_claim,
 			make_employee_advance,
-			make_journal_entry_for_advance,
+			manual_journal_entry_for_advance,
 		)
 
 		frappe.db.delete("Employee Advance")
@@ -265,7 +265,7 @@ class TestExpenseClaim(HRMSTestSuite):
 
 		# link advance for partial amount
 		advance = make_employee_advance(claim.employee, {"advance_amount": 500})
-		pe = make_journal_entry_for_advance(advance)
+		pe = manual_journal_entry_for_advance(advance)
 		pe.submit()
 
 		claim = get_advances_for_claim(claim, advance.name)
@@ -287,7 +287,7 @@ class TestExpenseClaim(HRMSTestSuite):
 			create_return_through_additional_salary,
 			get_advances_for_claim,
 			make_employee_advance,
-			make_journal_entry_for_advance,
+			manual_journal_entry_for_advance,
 		)
 		from hrms.hr.doctype.expense_claim.expense_claim import get_allocation_amount
 		from hrms.payroll.doctype.salary_component.test_salary_component import create_salary_component
@@ -296,7 +296,7 @@ class TestExpenseClaim(HRMSTestSuite):
 		# create employee and employee advance
 		employee_name = make_employee("_T@employee.advance", "_Test Company")
 		advance = make_employee_advance(employee_name, {"repay_unclaimed_amount_from_salary": 1})
-		journal_entry = make_journal_entry_for_advance(advance)
+		journal_entry = manual_journal_entry_for_advance(advance)
 		journal_entry.submit()
 		advance.reload()
 
