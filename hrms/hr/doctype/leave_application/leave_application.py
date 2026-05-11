@@ -929,11 +929,8 @@ def get_number_of_leave_days(
 
 @frappe.whitelist()
 def get_leave_details(employee: str, date: str | datetime.date, for_salary_slip: bool = False) -> dict:
-<<<<<<< HEAD
 	validate_leave_access(employee)
 
-=======
->>>>>>> 637c2e7e (fix(Leave Application): missing type hints for whilelisted methods)
 	allocation_records = get_leave_allocation_records(employee, date)
 	leave_allocation = {}
 	precision = cint(frappe.db.get_single_value("System Settings", "float_precision")) or 2
