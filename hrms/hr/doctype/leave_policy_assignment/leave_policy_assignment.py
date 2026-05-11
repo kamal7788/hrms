@@ -511,6 +511,7 @@ def get_leave_type_details():
 			"is_lwp",
 			"is_earned_leave",
 			"is_compensatory",
+			"allow_negative",
 			"allocate_on_day",
 			"is_carry_forward",
 			"expire_carry_forwarded_leaves_after_days",
