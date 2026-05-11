@@ -337,11 +337,7 @@ def send_daily_feedback_reminder():
 
 
 @frappe.whitelist()
-<<<<<<< HEAD
 def get_expected_skill_set(interview_type: str) -> list[dict]:
-=======
-def get_expected_skill_set(interview_round: str) -> list[dict]:
->>>>>>> af715d68 (fix(Interview): missing type hints for whilelisted methods)
 	return frappe.get_all(
 		"Expected Skill Set", filters={"parent": interview_type}, fields=["skill"], order_by="idx"
 	)

@@ -86,17 +86,10 @@ class JobApplicant(Document):
 
 
 @frappe.whitelist()
-<<<<<<< HEAD
 def create_interview(job_applicant: str, interview_type: str) -> Document:
 	doc = frappe.get_doc("Job Applicant", job_applicant)
 
 	round_designation = frappe.db.get_value("Interview Type", interview_type, "designation")
-=======
-def create_interview(job_applicant: str, interview_round: str) -> Document:
-	doc = frappe.get_doc("Job Applicant", job_applicant)
-
-	round_designation = frappe.db.get_value("Interview Round", interview_round, "designation")
->>>>>>> d10d63b5 (fix(Job Applicant): missing type hints for whilelisted methods)
 
 	if round_designation and doc.designation and round_designation != doc.designation:
 		frappe.throw(

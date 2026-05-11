@@ -148,11 +148,7 @@ frappe.ui.form.on("Job Applicant", {
 			method: "hrms.hr.doctype.job_applicant.job_applicant.create_interview",
 			args: {
 				job_applicant: frm.doc.name,
-<<<<<<< HEAD
 				interview_type: values.interview_type,
-=======
-				interview_round: values.interview_round,
->>>>>>> d10d63b5 (fix(Job Applicant): missing type hints for whilelisted methods)
 			},
 			callback: function (r) {
 				var doclist = frappe.model.sync(r.message);
