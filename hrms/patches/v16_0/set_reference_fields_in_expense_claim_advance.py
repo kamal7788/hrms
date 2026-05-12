@@ -5,6 +5,9 @@ from frappe.query_builder.functions import IfNull
 def execute():
 	ExpenseClaimAdvance = frappe.qb.DocType("Expense Claim Advance")
 
+	if not frappe.db.has_column("Expense Claim Advance", "payment_entry"):
+		return
+
 	(
 		frappe.qb.update(ExpenseClaimAdvance)
 		.set(ExpenseClaimAdvance.reference_name, ExpenseClaimAdvance.payment_entry)
