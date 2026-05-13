@@ -17,7 +17,7 @@
 
 <script setup>
 import { createResource, Autocomplete, debounce } from "frappe-ui";
-import { ref, computed, watch } from "vue";
+import { ref, computed, watch, onMounted } from "vue";
 
 const props = defineProps({
 	doctype: {
@@ -101,12 +101,15 @@ const handleQueryUpdate = debounce((newQuery) => {
 	reloadOptions(val);
 }, 300);
 
+onMounted(() => {
+	reloadOptions(props.modelValue || "");
+});
+
 watch(
 	() => props.doctype,
 	() => {
 		if (!props.doctype || props.doctype === options.doctype) return;
 		reloadOptions("");
 	},
-	{ immediate: true },
 );
 </script>
