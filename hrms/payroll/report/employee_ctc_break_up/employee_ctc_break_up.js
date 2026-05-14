@@ -25,6 +25,9 @@ frappe.query_reports["Employee CTC Break-up"] = {
 					},
 				};
 			},
+			on_change: function () {
+				frappe.query_report.set_filter_value("salary_structure_assignment", "");
+			},
 		},
 		{
 			fieldname: "salary_structure_assignment",

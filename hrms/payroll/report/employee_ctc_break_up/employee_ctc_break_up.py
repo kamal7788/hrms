@@ -18,7 +18,7 @@ class SalaryBreakupReport:
 		self.salary_structure, self.currency, self.assignment_date, self.income_tax_slab, self.ctc = (
 			frappe.get_value(
 				"Salary Structure Assignment",
-				salary_structure_assignment,
+				{"name": salary_structure_assignment, "employee": employee},
 				["salary_structure", "currency", "from_date", "income_tax_slab", "ctc"],
 			)
 		)
