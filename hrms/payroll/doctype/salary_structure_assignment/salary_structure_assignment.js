@@ -73,14 +73,20 @@ frappe.ui.form.on("Salary Structure Assignment", {
 			__("See CTC Break-up"),
 			function () {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> f8761f2a (feat: new field ctc in salary structure assignment)
 				if (!frm.doc.ctc) {
 					frm.scroll_to_field("ctc");
 					frappe.throw(
 						__("Please set employee's total cost to company to see CTC breakup."),
 					);
 				}
+<<<<<<< HEAD
 =======
 >>>>>>> 6f253fad (feat: custom button on salary structure assigment to see CTC breakup report)
+=======
+>>>>>>> f8761f2a (feat: new field ctc in salary structure assignment)
 				frappe.set_route("query-report", "Employee CTC Break-up", {
 					employee: frm.doc.employee,
 					salary_structure_assignment: frm.doc.name,

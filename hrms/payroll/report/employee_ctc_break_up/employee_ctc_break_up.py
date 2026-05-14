@@ -26,6 +26,7 @@ class SalaryBreakupReport:
 		self.employee = employee
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 		self.salary_structure_assignment = salary_structure_assignment
 
 		self.salary_structure, self.currency, self.assignment_date, self.income_tax_slab, self.ctc = (
@@ -48,6 +49,16 @@ class SalaryBreakupReport:
 			salary_structure_assignment,
 			["salary_structure", "currency", "from_date", "income_tax_slab"],
 >>>>>>> f992583c (feat: CTC summary card)
+=======
+		self.salary_structure_assignment = salary_structure_assignment
+
+		self.salary_structure, self.currency, self.assignment_date, self.income_tax_slab, self.ctc = (
+			frappe.get_value(
+				"Salary Structure Assignment",
+				salary_structure_assignment,
+				["salary_structure", "currency", "from_date", "income_tax_slab", "ctc"],
+			)
+>>>>>>> f8761f2a (feat: new field ctc in salary structure assignment)
 		)
 		self.validate_ctc()
 		self.salary_slip = make_salary_slip(
@@ -107,14 +118,20 @@ class SalaryBreakupReport:
 				_("Please set cost to company(CTC) for employee {0} in the {1}").format(
 					frappe.bold(self.employee),
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> f8761f2a (feat: new field ctc in salary structure assignment)
 					get_link_to_form(
 						"Salary Structure Assignment",
 						self.salary_structure_assignment,
 						"Salary Structure Assignment",
 					),
+<<<<<<< HEAD
 =======
 					get_link_to_form("Employee", self.employee + "#salary_information", "employee master."),
 >>>>>>> 687b2617 (feat: validate filters and ctc)
+=======
+>>>>>>> f8761f2a (feat: new field ctc in salary structure assignment)
 				),
 				title=_("CTC Missing for Employee"),
 			)
@@ -331,6 +348,7 @@ class SalaryBreakupReport:
 	def format_currency(self, amount):
 		return format_value(amount, currency=self.currency)
 
+<<<<<<< HEAD
 >>>>>>> f992583c (feat: CTC summary card)
 	def get_summary(self):
 		per_cycle_ctc = flt(self.ctc / self.cycle_multiplier, 2)
@@ -357,6 +375,8 @@ class SalaryBreakupReport:
 		]
 >>>>>>> 211d83aa (feat: Employee CTC Breakup report)
 
+=======
+>>>>>>> f8761f2a (feat: new field ctc in salary structure assignment)
 	def get_columns(self) -> list[dict]:
 		"""Return columns for the report.
 

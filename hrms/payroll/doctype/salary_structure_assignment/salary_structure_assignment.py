@@ -16,6 +16,11 @@ class DuplicateAssignment(frappe.ValidationError):
 
 
 class SalaryStructureAssignment(Document):
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> f8761f2a (feat: new field ctc in salary structure assignment)
 	# begin: auto-generated types
 	# This code is auto-generated. Do not modify anything in this block.
 
@@ -50,6 +55,10 @@ class SalaryStructureAssignment(Document):
 		variable: DF.Currency
 	# end: auto-generated types
 
+<<<<<<< HEAD
+=======
+>>>>>>> 15941275 (feat: new field ctc in salary structure assignment)
+>>>>>>> f8761f2a (feat: new field ctc in salary structure assignment)
 	def validate(self):
 		self.validate_dates()
 		self.validate_company()
