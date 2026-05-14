@@ -501,6 +501,9 @@ class SalaryBreakupReport:
 			}
 		)
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e6ebb85b (chore: render template use is safe, asking the rules to be ignored for this)
 		# nosemgrep: frappe-semgrep-rules.rules.security.frappe-ssti
 		employee_profile_card = render_template(path, context=context, is_path=True)
 		return employee_profile_card
