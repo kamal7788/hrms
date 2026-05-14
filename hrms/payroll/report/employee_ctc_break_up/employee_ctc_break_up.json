@@ -10,21 +10,29 @@
  "idx": 0,
  "is_standard": "Yes",
 <<<<<<< HEAD
+<<<<<<< HEAD
  "modified": "2026-05-14 12:08:50.414476",
 =======
  "letter_head": null,
  "modified": "2026-04-15 23:59:12.988472",
 >>>>>>> 211d83aa (feat: Employee CTC Breakup report)
+=======
+ "modified": "2026-05-14 12:08:50.414476",
+>>>>>>> 6f253fad (feat: custom button on salary structure assigment to see CTC breakup report)
  "modified_by": "Administrator",
  "module": "Payroll",
  "name": "Employee CTC Break-up",
  "owner": "Administrator",
  "prepared_report": 0,
 <<<<<<< HEAD
+<<<<<<< HEAD
  "ref_doctype": "Salary Structure Assignment",
 =======
  "ref_doctype": "Salary Structure",
 >>>>>>> 211d83aa (feat: Employee CTC Breakup report)
+=======
+ "ref_doctype": "Salary Structure Assignment",
+>>>>>>> 6f253fad (feat: custom button on salary structure assigment to see CTC breakup report)
  "report_name": "Employee CTC Break-up",
  "report_type": "Script Report",
  "roles": [
