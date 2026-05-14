@@ -4,6 +4,8 @@
 import frappe
 from frappe import _
 from frappe.utils import flt, get_link_to_form
+from frappe.utils.formatters import format_value
+from frappe.utils.jinja import render_template
 
 from hrms.payroll.doctype.salary_structure.salary_structure import make_salary_slip
 
@@ -14,8 +16,10 @@ class SalaryBreakupReport:
 		self.ctc = frappe.db.get_value("Employee", employee, "ctc")
 		self.validate_ctc()
 
-		self.salary_structure, self.currency = frappe.get_value(
-			"Salary Structure Assignment", salary_structure_assignment, ["salary_structure", "currency"]
+		self.salary_structure, self.currency, self.assignment_date, self.income_tax_slab = frappe.get_value(
+			"Salary Structure Assignment",
+			salary_structure_assignment,
+			["salary_structure", "currency", "from_date", "income_tax_slab"],
 		)
 		self.salary_slip = make_salary_slip(
 			self.salary_structure, employee=self.employee, for_preview=1, as_print=False
@@ -183,6 +187,9 @@ class SalaryBreakupReport:
 		for component in self.salary_components:
 			component["indent"] = 1
 
+	def format_currency(self, amount):
+		return format_value(amount, currency=self.currency)
+
 	def get_summary(self):
 		per_cycle_ctc = flt(self.ctc / self.cycle_multiplier, 2)
 		return [
@@ -218,38 +225,44 @@ class SalaryBreakupReport:
 				"fieldname": "salary_component",
 				"fieldtype": "Data",
 				"width": 300,
+				"fixed": 1,
 			},
 			{
 				"label": _("Type"),
 				"fieldname": "type",
 				"fieldtype": "Data",
-				"width": 200,
+				"width": 150,
+				"fixed": 1,
 			},
 			{
 				"label": _("Formula/Amount"),
 				"fieldname": "formula",
 				"fieldtype": "Data",
-				"width": 200,
+				"width": 250,
+				"fixed": 1,
 			},
 			{
 				"label": _(self.payroll_frequency),
 				"fieldname": "per_cycle",
 				"fieldtype": "Currency",
-				"width": 200,
+				"width": 250,
 				"options": "currency",
+				"fixed": 1,
 			},
 			{
 				"label": _("Annual"),
 				"fieldname": "annual",
 				"fieldtype": "Currency",
-				"width": 200,
+				"width": 250,
 				"options": "currency",
+				"fixed": 1,
 			},
 			{
 				"label": _("Percent of CTC (%)"),
 				"fieldname": "percent_of_ctc",
 				"fieldtype": "Percent",
 				"width": 200,
+				"fixed": 1,
 			},
 			{
 				"fieldname": "currency",
@@ -260,6 +273,24 @@ class SalaryBreakupReport:
 				"value": self.currency,
 			},
 		]
+
+	def get_message(self):
+		path = "hrms/payroll/report/employee_ctc_break_up/employee_profile_card.html"
+		context = frappe.get_doc("Employee", self.employee).as_dict()
+		context.update(
+			{
+				"salary_structure": self.salary_structure,
+				"per_cycle": self.payroll_frequency,
+				"annual_ctc": self.format_currency(self.ctc),
+				"per_cycle_ctc": self.format_currency(flt(self.ctc / self.cycle_multiplier, 2)),
+				"per_cycle_gross_pay": self.format_currency(self.gross_pay),
+				"per_cycle_net_pay": self.format_currency(self.net_pay),
+				"assignment_date": frappe.utils.global_date_format(self.assignment_date, "long"),
+				"income_tax_slab": self.income_tax_slab,
+			}
+		)
+		employee_profile_card = render_template(path, context=context, is_path=True)
+		return employee_profile_card
 
 
 def execute(filters: dict | None = None):
@@ -288,7 +319,6 @@ def execute(filters: dict | None = None):
 	salary_breakup_report = SalaryBreakupReport(employee, salary_structure_assignment)
 
 	data = salary_breakup_report.get_data()
-	summary = salary_breakup_report.get_summary()
 	columns = salary_breakup_report.get_columns()
-
-	return columns, data, None, None, summary
+	message = salary_breakup_report.get_message()
+	return columns, data, message, None, None
