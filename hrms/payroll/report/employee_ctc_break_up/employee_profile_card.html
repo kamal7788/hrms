@@ -103,9 +103,15 @@
                 <span class="text-small" style="white-space: nowrap;">{{designation}}</span>
             {% endif %}
             <div class="text-small">
+<<<<<<< HEAD
             <div style="white-space: nowrap; margin-right: 4px;"> {{_("Salary Structure: ") + salary_structure}}</div>
             {% if income_tax_slab %}<div style="white-space: nowrap;">{{_("Income Tax Slab: ") + income_tax_slab}}</div>{% endif %}
             <div style="white-space: nowrap;">{{ _("Assignment Date: ") + assignment_date}} </div>
+=======
+            <div style="white-space: nowrap; margin-right: 4px;">Salary Structure: {{salary_structure}}</div>
+            {% if income_tax_slab %}<div style="white-space: nowrap;">Income Tax Slab: {{income_tax_slab}}</div>{% endif %}
+            <div style="white-space: nowrap;">Assignment Date: {{assignment_date}} </div>
+>>>>>>> f992583c (feat: CTC summary card)
             </div>
 		</div>
 	</div>
@@ -120,7 +126,11 @@
                     {{ annual_ctc }}
                 </div>
                 <div class="mt-1 text-small no-wrap">
+<<<<<<< HEAD
                    {{_("Annual CTC")}}
+=======
+                    Annual CTC
+>>>>>>> f992583c (feat: CTC summary card)
                 </div>
 		    </div>
 
@@ -132,7 +142,11 @@
                 </div>
 
                 <div class="mt-1 text-small no-wrap">
+<<<<<<< HEAD
                     {{_(per_cycle + " CTC")}}
+=======
+                    {{per_cycle}} CTC
+>>>>>>> f992583c (feat: CTC summary card)
                 </div>
 		    </div>
         </div>
@@ -145,7 +159,11 @@
 			</div>
 
 			<div class="mt-1 text-small no-wrap">
+<<<<<<< HEAD
 				{{_(per_cycle +" Gross Pay")}}
+=======
+				{{per_cycle}} Gross Pay
+>>>>>>> f992583c (feat: CTC summary card)
 			</div>
 		    </div>
 
@@ -157,7 +175,11 @@
                 </div>
 
                 <div class="mt-1 text-small no-wrap">
+<<<<<<< HEAD
                     {{_(per_cycle + " Net Pay")}}
+=======
+                    {{per_cycle}} Net Pay
+>>>>>>> f992583c (feat: CTC summary card)
                 </div>
             </div>
 
