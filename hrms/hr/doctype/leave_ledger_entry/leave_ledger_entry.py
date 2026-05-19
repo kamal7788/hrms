@@ -222,11 +222,7 @@ def expire_allocation(allocation, expiry_date=None):
 	frappe.db.set_value(
 		"Leave Allocation",
 		allocation.name,
-		{
-			"expired": 1,
-			"new_leaves_allocated": 0,
-			"total_leaves_allocated": 0
-		}
+		{"expired": 1, "new_leaves_allocated": 0, "total_leaves_allocated": 0},
 	)
 
 
