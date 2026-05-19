@@ -219,7 +219,15 @@ def expire_allocation(allocation, expiry_date=None):
 		)
 		create_leave_ledger_entry(allocation, args)
 
-	frappe.db.set_value("Leave Allocation", allocation.name, "expired", 1)
+	frappe.db.set_value(
+		"Leave Allocation",
+		allocation.name,
+		{
+			"expired": 1,
+			"new_leaves_allocated": 0,
+			"total_leaves_allocated": 0
+		}
+	)
 
 
 def expire_carried_forward_allocation(allocation):

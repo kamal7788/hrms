@@ -50,7 +50,7 @@ frappe.ui.form.on("Leave Allocation", {
 		if (!frm.doc.__islocal && frm.doc.leave_policy_assignment) {
 			frappe.db.get_value("Leave Type", frm.doc.leave_type, "is_earned_leave", (r) => {
 				if (!r?.is_earned_leave) return;
-				frm.set_df_property("new_leaves_allocated", "read_only", 1);
+				frm.set_df_property("new_leaves_allocated", "hidden", 1);
 				frm.trigger("add_allocate_leaves_button");
 			});
 		}
