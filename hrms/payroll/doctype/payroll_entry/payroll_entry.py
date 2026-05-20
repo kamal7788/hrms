@@ -151,10 +151,6 @@ class PayrollEntry(Document):
 
 		# cancel Journal Entries
 		for je in journal_entries:
-<<<<<<< HEAD
-			frappe.get_doc("Journal Entry", je).cancel()
-
-=======
 			journal_entry_payment_ledgers = frappe.get_all(
 				"Payment Ledger Entry",
 				{"voucher_type": "Journal Entry", "voucher_no": je, "docstatus": 1},
@@ -183,7 +179,6 @@ class PayrollEntry(Document):
 			payment_ledger_entry.flags.ignore_permissions = True
 			payment_ledger_entry.cancel()
 
->>>>>>> c4a2d4c29 (fix(payroll_entry): ignore permissions when canceling payment ledger and journal entries)
 	def get_linked_salary_slips(self):
 		return frappe.get_all("Salary Slip", {"payroll_entry": self.name}, ["name", "docstatus"])
 
