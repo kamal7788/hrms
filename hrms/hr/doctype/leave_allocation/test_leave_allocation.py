@@ -636,11 +636,13 @@ class TestLeaveAllocation(FrappeTestCase):
 		# allocate 6 new leaves after expiry
 		leave_allocation.allocate_leaves_manually(6)
 		leave_allocation.reload()
+		self.assertEqual(leave_allocation.new_leaves_allocated, 0)
 		self.assertEqual(leave_allocation.total_leaves_allocated, 6)
 
 		# allocate 3 more leaves
 		leave_allocation.allocate_leaves_manually(3)
 		leave_allocation.reload()
+		self.assertEqual(leave_allocation.new_leaves_allocated, 0)
 		self.assertEqual(leave_allocation.total_leaves_allocated, 9)
 
 
