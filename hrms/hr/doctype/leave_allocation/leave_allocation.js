@@ -131,7 +131,7 @@ frappe.ui.form.on("Leave Allocation", {
 				if (!r.exc) {
 					frappe.msgprint(__("Allocation Expired!"));
 				}
-				frm.refresh();
+				frm.reload_doc();
 			},
 		});
 	},
