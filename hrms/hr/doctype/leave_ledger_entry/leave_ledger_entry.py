@@ -195,7 +195,7 @@ def get_remaining_leaves(allocation):
 
 
 @frappe.whitelist()
-def expire_allocation(allocation, expiry_date=None):
+def expire_allocation(allocation: str | Document, expiry_date: str | None = None):
 	"""expires non-carry forwarded allocation"""
 	import json
 
