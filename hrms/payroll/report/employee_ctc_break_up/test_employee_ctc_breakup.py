@@ -34,6 +34,7 @@ class TestEmployeeCTCBreakup(HRMSTestSuite):
 	"""
 
 	def test_ctc_summary_cards(self):
+		frappe.db.set_single_value("System Settings", "currency_precision", 2)
 		test_data = {
 			"Monthly": {
 				# if
