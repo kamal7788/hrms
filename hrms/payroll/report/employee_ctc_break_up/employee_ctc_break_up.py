@@ -6,7 +6,7 @@ from frappe import _
 <<<<<<< HEAD
 <<<<<<< HEAD
 from frappe.utils import flt, get_link_to_form
-from frappe.utils.formatters import format_value
+from frappe.utils.formatters import fmt_money
 from frappe.utils.jinja import render_template
 <<<<<<< HEAD
 =======
@@ -352,7 +352,7 @@ class SalaryBreakupReport:
 =======
 =======
 	def format_currency(self, amount):
-		return format_value(amount, currency=self.currency)
+		return fmt_money(amount, precision=2, currency=self.currency)
 
 <<<<<<< HEAD
 >>>>>>> f992583c (feat: CTC summary card)
